@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --color-sage-50: #f4f7f4;
+  --color-sage-100: #e5ede5;
+  --color-sage-200: #cddecd;
+  --color-sage-300: #a7c5a8;
+  --color-sage-400: #7ba57d;
+  --color-sage-500: #588a5c;
+  --color-sage-600: #436e47;
+  --color-sage-700: #37583b;
+  --color-sage-800: #2e4731;
+  --color-sage-900: #263b29;
+
+  --color-clay-50: #fdf6f3;
+  --color-clay-100: #fbe9e2;
+  --color-clay-200: #f6d0c2;
+  --color-clay-300: #eeac93;
+  --color-clay-400: #e3805e;
+  --color-clay-500: #d3603c;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-sage-50 text-sage-900 antialiased dark:bg-[#141a15] dark:text-sage-100;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-sage-500;
+}

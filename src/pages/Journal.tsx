@@ -111,7 +111,7 @@ export function Journal() {
           {combined.map((item) => (
             <li
               key={item.entry.id}
-              className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40"
+              className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40"
             >
               <div className="mb-2 flex items-center justify-between text-xs text-sage-500 dark:text-sage-400">
                 <span className="font-medium uppercase tracking-wide">{TYPE_LABEL[item.type]}</span>

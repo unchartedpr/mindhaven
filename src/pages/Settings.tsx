@@ -65,7 +65,7 @@ export function Settings() {
         </p>
       </div>
 
-      <section className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
+      <section className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
         <h2 className="font-semibold text-sage-800 dark:text-sage-100">Back up your data</h2>
         <p className="mt-1 text-sm text-sage-500 dark:text-sage-400">
           Download everything — mood check-ins, gratitude notes, thought reframes, and worry notes —
@@ -80,7 +80,7 @@ export function Settings() {
         </button>
       </section>
 
-      <section className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
+      <section className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
         <h2 className="font-semibold text-sage-800 dark:text-sage-100">Restore from a backup</h2>
         <p className="mt-1 text-sm text-sage-500 dark:text-sage-400">
           Choose a previously downloaded backup file. New entries are merged in — nothing already
@@ -115,7 +115,7 @@ export function Settings() {
         )}
       </section>
 
-      <section className="rounded-xl border border-clay-200 bg-clay-50/60 p-4 dark:border-clay-500/30 dark:bg-clay-500/5">
+      <section className="rounded-xl border border-clay-200 bg-clay-50/60 p-4 shadow-sm dark:border-clay-500/30 dark:bg-clay-500/5">
         <h2 className="font-semibold text-sage-800 dark:text-sage-100">Delete all data</h2>
         <p className="mt-1 text-sm text-sage-500 dark:text-sage-400">
           Permanently erases everything from this device. This can't be undone unless you have a

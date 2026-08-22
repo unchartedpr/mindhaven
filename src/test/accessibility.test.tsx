@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
-import { MemoryRouter } from 'react-router-dom'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { axe } from 'vitest-axe'
 import { Home } from '../pages/Home'
 import { CheckIn } from '../pages/CheckIn'
@@ -9,6 +9,8 @@ import { Settings } from '../pages/Settings'
 import { Journal } from '../pages/Journal'
 import { Exercises } from '../pages/Exercises'
 import { Onboarding } from '../components/Onboarding'
+import { Layout } from '../components/Layout'
+import { onboardingStore } from '../lib/storage'
 
 // jsdom can't compute real rendered colors from Tailwind classes, so
 // color-contrast checks are unreliable here and are covered instead by
@@ -21,6 +23,24 @@ function renderWithRouter(ui: React.ReactElement, initialEntries = ['/']) {
 }
 
 describe('accessibility', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
+  it('Layout (header, footer, both nav bars) has no axe violations', async () => {
+    onboardingStore.markComplete()
+    const { container } = render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<div>Page content</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    )
+    expect(await axe(container, AXE_OPTIONS)).toHaveNoViolations()
+  })
+
   it('Home page has no axe violations', async () => {
     const { container } = renderWithRouter(<Home />)
     expect(await axe(container, AXE_OPTIONS)).toHaveNoViolations()

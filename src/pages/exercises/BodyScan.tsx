@@ -97,7 +97,7 @@ export function BodyScan() {
     <div className="flex flex-col items-center gap-6 text-center">
       <ExerciseHeader title="Body scan" subtitle="Follow along at your own pace." />
 
-      <div className="w-full max-w-sm rounded-2xl border border-sage-200 bg-white p-8 dark:border-sage-800 dark:bg-sage-900/40">
+      <div className="w-full max-w-sm rounded-2xl border border-sage-200 bg-white p-8 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
         <div className="text-sm font-medium uppercase tracking-wide text-sage-400">
           Step {stepIndex + 1} of {STEPS.length}
         </div>

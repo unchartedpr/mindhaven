@@ -35,7 +35,7 @@ export function Home() {
       <CrisisBanner />
 
       <section className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
+        <div className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-sage-800 dark:text-sage-100">Your streak</h2>
             <span className="text-2xl" aria-hidden="true">
@@ -57,7 +57,7 @@ export function Home() {
           )}
         </div>
 
-        <div className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
+        <div className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
           <h2 className="font-semibold text-sage-800 dark:text-sage-100">Last check-in</h2>
           {lastMood ? (
             <div className="mt-2 flex items-center gap-3">
@@ -74,7 +74,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
+      <section className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
         <h2 className="mb-2 font-semibold text-sage-800 dark:text-sage-100">14-day trend</h2>
         <MoodChart entries={entries} />
         <WeeklyInsight entries={entries} />
@@ -87,7 +87,7 @@ export function Home() {
             <Link
               key={link.to}
               to={link.to}
-              className="flex items-start gap-3 rounded-xl border border-sage-200 bg-white p-4 transition-colors hover:bg-sage-50 dark:border-sage-800 dark:bg-sage-900/40 dark:hover:bg-sage-800/50"
+              className="flex items-start gap-3 rounded-xl border border-sage-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-sage-800 dark:bg-sage-900/40"
             >
               <span className="text-2xl" aria-hidden="true">
                 {link.emoji}

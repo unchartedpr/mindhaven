@@ -99,7 +99,7 @@ export function CheckIn() {
             {history.map((entry) => (
               <li
                 key={entry.id}
-                className="flex items-start gap-3 rounded-lg border border-sage-200 bg-white p-3 text-sm dark:border-sage-800 dark:bg-sage-900/40"
+                className="flex items-start gap-3 rounded-lg border border-sage-200 bg-white p-3 text-sm shadow-sm dark:border-sage-800 dark:bg-sage-900/40"
               >
                 <span className="text-xl" aria-hidden="true">
                   {MOOD_EMOJI[entry.mood]}

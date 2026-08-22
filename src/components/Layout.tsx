@@ -3,18 +3,18 @@ import { useTheme } from '../lib/useTheme'
 import { Onboarding } from './Onboarding'
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/check-in', label: 'Check In' },
-  { to: '/exercises', label: 'Exercises' },
-  { to: '/journal', label: 'Journal' },
-  { to: '/resources', label: 'Resources' },
+  { to: '/', label: 'Home', emoji: '🏡', end: true },
+  { to: '/check-in', label: 'Check In', emoji: '📝' },
+  { to: '/exercises', label: 'Exercises', emoji: '🌬️' },
+  { to: '/journal', label: 'Journal', emoji: '📔' },
+  { to: '/resources', label: 'Resources', emoji: '☎️' },
 ]
 
 export function Layout() {
   const { theme, toggle } = useTheme()
 
   return (
-    <div className="flex min-h-svh flex-col">
+    <div className="flex min-h-svh flex-col pb-16 sm:pb-0">
       <Onboarding />
       <a
         href="#main"
@@ -22,12 +22,12 @@ export function Layout() {
       >
         Skip to content
       </a>
-      <header className="border-b border-sage-200 bg-white/70 backdrop-blur dark:border-sage-800 dark:bg-[#141a15]/70">
+      <header className="sticky top-0 z-30 border-b border-sage-200 bg-white/80 backdrop-blur dark:border-sage-800 dark:bg-[#141a15]/80">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3">
           <NavLink to="/" className="flex items-center gap-2 text-lg font-semibold text-sage-800 dark:text-sage-100">
             <span aria-hidden="true">🌿</span> MindHaven
           </NavLink>
-          <nav aria-label="Main navigation" className="flex items-center gap-1 overflow-x-auto">
+          <nav aria-label="Main navigation" className="hidden items-center gap-1 sm:flex">
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.to}
@@ -84,6 +84,38 @@ export function Layout() {
           Made to be free, private, and available to anyone who needs a moment of support.
         </p>
       </footer>
+
+      <nav
+        aria-label="Main navigation, mobile"
+        className="fixed inset-x-0 bottom-0 z-30 flex border-t border-sage-200 bg-white/95 backdrop-blur sm:hidden dark:border-sage-800 dark:bg-[#141a15]/95"
+      >
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={({ isActive }) =>
+              `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${
+                isActive
+                  ? 'text-sage-700 dark:text-sage-100'
+                  : 'text-sage-400 dark:text-sage-500'
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <span
+                  aria-hidden="true"
+                  className={`text-lg transition-transform ${isActive ? 'scale-110' : ''}`}
+                >
+                  {item.emoji}
+                </span>
+                {item.label}
+              </>
+            )}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   )
 }

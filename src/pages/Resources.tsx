@@ -44,7 +44,7 @@ export function Resources() {
         </select>
       </div>
 
-      <div className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
+      <div className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-semibold text-sage-800 dark:text-sage-100">{country.country}</h2>
           <span className="rounded-full bg-sage-100 px-3 py-1 text-xs font-medium text-sage-700 dark:bg-sage-800 dark:text-sage-200">
@@ -68,7 +68,7 @@ export function Resources() {
           {INTERNATIONAL_RESOURCES.map((r) => (
             <li
               key={r.name}
-              className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40"
+              className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40"
             >
               <div className="font-medium text-sage-800 dark:text-sage-100">{r.name}</div>
               <div className="text-sage-700 dark:text-sage-200">{r.contact}</div>

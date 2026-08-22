@@ -65,7 +65,7 @@ function ExercisesList() {
           <Link
             key={ex.to}
             to={ex.to}
-            className="flex flex-col gap-1 rounded-xl border border-sage-200 bg-white p-4 transition-colors hover:bg-sage-50 dark:border-sage-800 dark:bg-sage-900/40 dark:hover:bg-sage-800/50"
+            className="flex flex-col gap-1 rounded-xl border border-sage-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-sage-800 dark:bg-sage-900/40"
           >
             <span className="text-2xl" aria-hidden="true">
               {ex.emoji}

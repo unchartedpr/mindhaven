@@ -64,6 +64,21 @@ export function Grounding() {
         subtitle="Notice your surroundings, one sense at a time."
       />
 
+      <div className="flex items-center justify-center gap-2" aria-hidden="true">
+        {STEPS.map((_, i) => (
+          <span
+            key={i}
+            className={`h-1.5 rounded-full transition-all ${
+              i === stepIndex
+                ? 'w-6 bg-sage-600 dark:bg-sage-300'
+                : i < stepIndex
+                  ? 'w-1.5 bg-sage-400 dark:bg-sage-600'
+                  : 'w-1.5 bg-sage-200 dark:bg-sage-800'
+            }`}
+          />
+        ))}
+      </div>
+
       <div className="flex items-center gap-3 text-lg font-medium text-sage-800 dark:text-sage-100">
         <span className="text-2xl" aria-hidden="true">
           {step.emoji}

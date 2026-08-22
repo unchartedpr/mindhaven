@@ -23,9 +23,10 @@ function renderLayout() {
 }
 
 describe('Layout', () => {
-  it('renders the main navigation and outlet content', () => {
+  it('renders both desktop and mobile navigation, and the outlet content', () => {
     renderLayout()
-    expect(screen.getByRole('navigation', { name: /main navigation/i })).toBeInTheDocument()
+    expect(screen.getByRole('navigation', { name: /^main navigation$/i })).toBeInTheDocument()
+    expect(screen.getByRole('navigation', { name: /main navigation, mobile/i })).toBeInTheDocument()
     expect(screen.getByText('Page content')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /settings and data/i })).toHaveAttribute('href', '/settings')
   })

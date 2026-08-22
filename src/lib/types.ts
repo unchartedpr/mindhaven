@@ -25,6 +25,21 @@ export interface ThoughtReframeEntry {
   balancedThought: string
 }
 
+export interface WorryEntry {
+  id: string
+  timestamp: number
+  worry: string
+}
+
+export interface MindHavenExport {
+  version: 1
+  exportedAt: number
+  moods: MoodEntry[]
+  gratitude: GratitudeEntry[]
+  reframes: ThoughtReframeEntry[]
+  worries: WorryEntry[]
+}
+
 export const MOOD_LABELS: Record<MoodValue, string> = {
   1: 'Awful',
   2: 'Rough',

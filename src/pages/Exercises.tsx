@@ -3,6 +3,8 @@ import { Breathing } from './exercises/Breathing'
 import { Grounding } from './exercises/Grounding'
 import { Reframe } from './exercises/Reframe'
 import { Gratitude } from './exercises/Gratitude'
+import { WorryTime } from './exercises/WorryTime'
+import { BodyScan } from './exercises/BodyScan'
 
 const EXERCISES = [
   {
@@ -20,11 +22,25 @@ const EXERCISES = [
     time: '3–5 min',
   },
   {
+    to: 'body-scan',
+    title: 'Body scan',
+    desc: 'A guided progressive relaxation, moving attention through your body.',
+    emoji: '🧘',
+    time: '~2 min',
+  },
+  {
     to: 'reframe',
     title: 'Thought reframing',
     desc: 'A CBT-style worksheet to examine and balance a difficult thought.',
     emoji: '🔄',
     time: '5–10 min',
+  },
+  {
+    to: 'worry-time',
+    title: 'Worry time',
+    desc: 'Write a worry down fully, then consciously set it aside for later.',
+    emoji: '📦',
+    time: '2–5 min',
   },
   {
     to: 'gratitude',
@@ -70,7 +86,9 @@ export function Exercises() {
       <Route index element={<ExercisesList />} />
       <Route path="breathing" element={<Breathing />} />
       <Route path="grounding" element={<Grounding />} />
+      <Route path="body-scan" element={<BodyScan />} />
       <Route path="reframe" element={<Reframe />} />
+      <Route path="worry-time" element={<WorryTime />} />
       <Route path="gratitude" element={<Gratitude />} />
     </Routes>
   )

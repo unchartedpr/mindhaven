@@ -81,7 +81,200 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
       { name: 'Suicide Crisis Line', contact: '0800 567 567', description: '24/7 suicide crisis support.' },
     ],
   },
-]
+  {
+    country: 'Germany',
+    emergency: '112',
+    resources: [
+      { name: 'Telefonseelsorge', contact: '0800 111 0 111 or 0800 111 0 222', description: 'Free, 24/7, anonymous emotional support (also available as 116 123).' },
+    ],
+  },
+  {
+    country: 'France',
+    emergency: '112',
+    resources: [
+      { name: 'Numéro national de prévention du suicide', contact: '3114', description: 'Free, 24/7 national suicide-prevention line.' },
+    ],
+  },
+  {
+    country: 'Spain',
+    emergency: '112',
+    resources: [
+      { name: 'Línea 024', contact: '024', description: 'Free, 24/7 national line for suicidal crisis, run by the Ministry of Health.' },
+    ],
+  },
+  {
+    country: 'Italy',
+    emergency: '112',
+    resources: [
+      { name: 'Telefono Amico Italia', contact: '02 2327 2327', description: 'Daily emotional-support helpline (10am–midnight).' },
+    ],
+  },
+  {
+    country: 'Netherlands',
+    emergency: '112',
+    resources: [
+      { name: '113 Zelfmoordpreventie', contact: 'Call 113 or 0800-0113', description: 'Free, 24/7 suicide-prevention line and chat.' },
+    ],
+  },
+  {
+    country: 'Belgium',
+    emergency: '112',
+    resources: [
+      { name: 'Zelfmoordlijn 1813 (Flanders)', contact: '1813', description: '24/7 suicide-prevention line, call or chat.' },
+      { name: 'Centre de Prévention du Suicide (Wallonia)', contact: '0800 32 123', description: 'Free, 24/7 French-language support.' },
+    ],
+  },
+  {
+    country: 'Switzerland',
+    emergency: '112 / 144 (ambulance)',
+    resources: [
+      { name: 'Die Dargebotene Hand', contact: '143', description: '24/7 emotional-support helpline, also by chat.' },
+    ],
+  },
+  {
+    country: 'Austria',
+    emergency: '112',
+    resources: [
+      { name: 'Telefonseelsorge Österreich', contact: '142', description: 'Free, 24/7, anonymous emotional support.' },
+    ],
+  },
+  {
+    country: 'Sweden',
+    emergency: '112',
+    resources: [
+      { name: 'Mind Självmordslinjen', contact: '90101', description: '24/7 suicide-prevention line, call or chat.' },
+    ],
+  },
+  {
+    country: 'Norway',
+    emergency: '112 (police) / 113 (ambulance)',
+    resources: [
+      { name: 'Mental Helse Hjelpetelefonen', contact: '116 123', description: 'Free, 24/7 mental health support line.' },
+    ],
+  },
+  {
+    country: 'Denmark',
+    emergency: '112',
+    resources: [
+      { name: 'Livslinien', contact: '70 201 201', description: 'Daily suicide-prevention helpline (11am–4am).' },
+    ],
+  },
+  {
+    country: 'Finland',
+    emergency: '112',
+    resources: [
+      { name: 'MIELI Valtakunnallinen kriisipuhelin', contact: '09 2525 0111', description: 'National crisis helpline (Finnish/Swedish).' },
+    ],
+  },
+  {
+    country: 'Poland',
+    emergency: '112',
+    resources: [
+      { name: 'Telefon Zaufania dla Dorosłych', contact: '116 123', description: 'Free emotional-support line for adults in crisis.' },
+    ],
+  },
+  {
+    country: 'Portugal',
+    emergency: '112',
+    resources: [
+      { name: 'SOS Voz Amiga', contact: '213 544 545 / 912 802 669 / 963 524 660', description: 'Daily emotional-support helpline, evenings.' },
+    ],
+  },
+  {
+    country: 'Japan',
+    emergency: '110 (police) / 119 (fire/ambulance)',
+    resources: [
+      { name: 'TELL Lifeline', contact: '03-5774-0992', description: 'English-language support line for Japan residents.' },
+      { name: 'Yorisoi Hotline', contact: '0120-279-338', description: 'Free, 24/7 Japanese-language support line.' },
+    ],
+  },
+  {
+    country: 'South Korea',
+    emergency: '112 (police) / 119 (fire/ambulance)',
+    resources: [
+      { name: 'Suicide Prevention Hotline', contact: '1393', description: '24/7 national crisis line.' },
+    ],
+  },
+  {
+    country: 'Philippines',
+    emergency: '911',
+    resources: [
+      { name: 'National Center for Mental Health Crisis Hotline', contact: '1553 (landline), 0966-351-4518 / 0917-899-8727 (mobile)', description: '24/7 national crisis line.' },
+    ],
+  },
+  {
+    country: 'Singapore',
+    emergency: '999 (police) / 995 (ambulance)',
+    resources: [
+      { name: 'Samaritans of Singapore (SOS)', contact: '1-767, or text 9151-1767', description: '24/7 confidential emotional support.' },
+    ],
+  },
+  {
+    country: 'Malaysia',
+    emergency: '999',
+    resources: [
+      { name: 'Befrienders KL', contact: '03-76272929', description: '24/7 confidential emotional support.' },
+    ],
+  },
+  {
+    country: 'Brazil',
+    emergency: '192 (SAMU) / 190 (police)',
+    resources: [
+      { name: 'CVV — Centro de Valorização da Vida', contact: '188', description: 'Free, 24/7 confidential emotional support.' },
+    ],
+  },
+  {
+    country: 'Mexico',
+    emergency: '911',
+    resources: [
+      { name: 'SAPTEL', contact: '55 5259 8121', description: '24/7 crisis and emotional-support line.' },
+      { name: 'Línea de la Vida', contact: '800 911 2000', description: 'Free, 24/7 national support line.' },
+    ],
+  },
+  {
+    country: 'Argentina',
+    emergency: '911',
+    resources: [
+      { name: 'Centro de Asistencia al Suicida', contact: '135 (from Buenos Aires) or 011 5275-1135', description: '24/7 crisis line.' },
+    ],
+  },
+  {
+    country: 'Chile',
+    emergency: '133 (police) / 131 (ambulance)',
+    resources: [
+      { name: 'Salud Responde', contact: '600 360 7777', description: '24/7 health orientation line with mental-health support.' },
+    ],
+  },
+  {
+    country: 'Colombia',
+    emergency: '123',
+    resources: [
+      { name: 'Línea 106', contact: '106', description: 'Free national mental-health and emotional-support line.' },
+    ],
+  },
+  {
+    country: 'Israel',
+    emergency: '100 (police) / 101 (ambulance)',
+    resources: [
+      { name: 'ERAN', contact: '1201', description: '24/7 emotional first-aid helpline, also by chat.' },
+    ],
+  },
+  {
+    country: 'Kenya',
+    emergency: '999 / 112',
+    resources: [
+      { name: 'Befrienders Kenya', contact: '0722 178 177', description: 'Confidential emotional-support helpline.' },
+    ],
+  },
+  {
+    country: 'Hong Kong',
+    emergency: '999',
+    resources: [
+      { name: 'The Samaritans Hong Kong', contact: '2896 0000', description: '24/7 multilingual emotional support.' },
+      { name: 'Suicide Prevention Services', contact: '2382 0000', description: '24/7 Cantonese/Mandarin crisis line.' },
+    ],
+  },
+].sort((a, b) => a.country.localeCompare(b.country))
 
 export const INTERNATIONAL_RESOURCES: CrisisResource[] = [
   {

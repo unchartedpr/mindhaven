@@ -1,4 +1,13 @@
+import { MOOD_LABELS } from '../lib/types'
 import type { MoodEntry } from '../lib/types'
+
+const WEEKDAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+function tooltipFor(date: Date, avg: number): string {
+  const rounded = Math.round(avg) as 1 | 2 | 3 | 4 | 5
+  const dateLabel = `${WEEKDAY[date.getDay()]} ${date.getMonth() + 1}/${date.getDate()}`
+  return `${dateLabel}: ${MOOD_LABELS[rounded]} (${avg.toFixed(1)})`
+}
 
 /** Minimal inline SVG line chart of the last N days of mood entries — no charting dependency needed. */
 export function MoodChart({ entries }: { entries: MoodEntry[] }) {
@@ -55,13 +64,18 @@ export function MoodChart({ entries }: { entries: MoodEntry[] }) {
         ) : null}
         {buckets.map((b, i) =>
           b.avg === null ? null : (
-            <circle
-              key={i}
-              cx={padding + i * stepX}
-              cy={yFor(b.avg)}
-              r={2.5}
-              className="fill-sage-600 dark:fill-sage-300"
-            />
+            <g key={i}>
+              {/* Larger invisible circle for an easier hover/tap target. */}
+              <circle cx={padding + i * stepX} cy={yFor(b.avg)} r={8} fill="transparent">
+                <title>{tooltipFor(b.date, b.avg)}</title>
+              </circle>
+              <circle
+                cx={padding + i * stepX}
+                cy={yFor(b.avg)}
+                r={2.5}
+                className="fill-sage-600 dark:fill-sage-300"
+              />
+            </g>
           ),
         )}
       </svg>

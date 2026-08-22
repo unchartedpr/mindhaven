@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { CrisisBanner } from '../components/CrisisBanner'
 import { MoodChart } from '../components/MoodChart'
+import { WeeklyInsight } from '../components/WeeklyInsight'
 import { computeStreak, moodStore } from '../lib/storage'
 import { MOOD_EMOJI } from '../lib/types'
 
@@ -76,6 +77,7 @@ export function Home() {
       <section className="rounded-xl border border-sage-200 bg-white p-4 dark:border-sage-800 dark:bg-sage-900/40">
         <h2 className="mb-2 font-semibold text-sage-800 dark:text-sage-100">14-day trend</h2>
         <MoodChart entries={entries} />
+        <WeeklyInsight entries={entries} />
       </section>
 
       <section>

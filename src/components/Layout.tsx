@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useTheme } from '../lib/useTheme'
+import { Onboarding } from './Onboarding'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home', end: true },
@@ -14,6 +15,7 @@ export function Layout() {
 
   return (
     <div className="flex min-h-svh flex-col">
+      <Onboarding />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-sage-700 focus:px-3 focus:py-2 focus:text-white"
@@ -43,14 +45,29 @@ export function Layout() {
               </NavLink>
             ))}
           </nav>
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-            className="rounded-full border border-sage-200 p-2 text-sage-700 hover:bg-sage-100 dark:border-sage-800 dark:text-sage-200 dark:hover:bg-sage-800"
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
+          <div className="flex items-center gap-1">
+            <NavLink
+              to="/settings"
+              aria-label="Settings and data"
+              className={({ isActive }) =>
+                `rounded-full border p-2 transition-colors ${
+                  isActive
+                    ? 'border-sage-500 bg-sage-100 text-sage-800 dark:bg-sage-800 dark:text-sage-100'
+                    : 'border-sage-200 text-sage-700 hover:bg-sage-100 dark:border-sage-800 dark:text-sage-200 dark:hover:bg-sage-800'
+                }`
+              }
+            >
+              ⚙️
+            </NavLink>
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              className="rounded-full border border-sage-200 p-2 text-sage-700 hover:bg-sage-100 dark:border-sage-800 dark:text-sage-200 dark:hover:bg-sage-800"
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+          </div>
         </div>
       </header>
 

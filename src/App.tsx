@@ -5,6 +5,7 @@ import { CheckIn } from './pages/CheckIn'
 import { Exercises } from './pages/Exercises'
 import { Journal } from './pages/Journal'
 import { Resources } from './pages/Resources'
+import { Settings } from './pages/Settings'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="exercises/*" element={<Exercises />} />
           <Route path="journal" element={<Journal />} />
           <Route path="resources" element={<Resources />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </HashRouter>

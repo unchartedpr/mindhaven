@@ -7,7 +7,7 @@ const TREND_COPY: Record<NonNullable<ReturnType<typeof computeWeeklyInsight>['tr
   same: 'about the same as',
 }
 
-export function WeeklyInsight({ entries }: { entries: MoodEntry[] }) {
+export function WeeklyInsight({ entries }: { entries: readonly MoodEntry[] }) {
   const insight = computeWeeklyInsight(entries)
 
   if (insight.thisWeekAvg === null) return null

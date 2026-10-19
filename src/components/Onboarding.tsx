@@ -1,35 +1,29 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { onboardingStore } from '../lib/storage'
+import { useModal } from '../lib/useModal'
+import { Button } from './ui'
 
 export function Onboarding() {
   const [open, setOpen] = useState(() => !onboardingStore.isComplete())
+  const dialogRef = useRef<HTMLDivElement>(null)
   const dismissRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    if (open) dismissRef.current?.focus()
-  }, [open])
-
-  useEffect(() => {
-    if (!open) return
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') dismiss()
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
 
   function dismiss() {
     onboardingStore.markComplete()
     setOpen(false)
   }
 
+  useModal(open, dialogRef, dismiss, dismissRef)
+
   if (!open) return null
 
-  return (
+  // Rendered into <body> (outside #root) so the app behind the dialog can be made inert.
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="onboarding-title"
@@ -41,7 +35,7 @@ export function Onboarding() {
         <h1 id="onboarding-title" className="text-xl font-semibold text-sage-800 dark:text-sage-50">
           Welcome to MindHaven
         </h1>
-        <p className="mt-2 text-sm text-sage-600 dark:text-sage-300">
+        <p className="mt-2 text-sm text-sage-700 dark:text-sage-300">
           A quiet, private space to check in with yourself. Two quick things before you start:
         </p>
 
@@ -52,16 +46,16 @@ export function Onboarding() {
               <strong className="font-medium text-sage-800 dark:text-sage-100">
                 Everything stays on this device.
               </strong>{' '}
-              There's no account and nothing is sent to a server — your check-ins and journal are
-              stored only in this browser. You can back them up any time from Settings.
+              There's no account and nothing is sent to a server — your check-ins and journal are stored only in
+              this browser. You can back them up any time from Settings.
             </span>
           </li>
           <li className="flex gap-3 rounded-lg bg-clay-50 p-3 dark:bg-clay-500/10">
             <span aria-hidden="true">⚠️</span>
-            <span className="text-clay-500 dark:text-clay-200">
-              <strong className="font-medium">This isn't crisis or clinical care.</strong> MindHaven
-              offers self-care tools, not medical advice, and can't see or respond to what you write.
-              If you're in immediate danger, please use{' '}
+            <span className="text-clay-700 dark:text-clay-200">
+              <strong className="font-medium">This isn't crisis or clinical care.</strong> MindHaven offers
+              self-care tools, not medical advice, and can't see or respond to what you write. If you're in
+              immediate danger, please use{' '}
               <Link to="/resources" onClick={dismiss} className="underline">
                 real crisis resources
               </Link>{' '}
@@ -70,15 +64,11 @@ export function Onboarding() {
           </li>
         </ul>
 
-        <button
-          ref={dismissRef}
-          type="button"
-          onClick={dismiss}
-          className="mt-5 w-full rounded-full bg-sage-600 py-2.5 text-sm font-medium text-white hover:bg-sage-700"
-        >
+        <Button ref={dismissRef} onClick={dismiss} className="mt-5 w-full">
           I understand, let's begin
-        </button>
+        </Button>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

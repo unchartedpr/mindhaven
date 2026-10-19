@@ -31,13 +31,36 @@ export interface WorryEntry {
   worry: string
 }
 
+/** A person the user can reach out to, with an optional phone number for one-tap calling. */
+export interface SafetyContact {
+  name: string
+  phone: string
+}
+
+/**
+ * A personal safety plan in the style of the Stanley–Brown Safety Planning
+ * Intervention. Entirely user-authored; MindHaven never interprets it.
+ */
+export interface SafetyPlan {
+  updatedAt: number
+  warningSigns: string[]
+  copingStrategies: string[]
+  distractionPeople: SafetyContact[]
+  supportPeople: SafetyContact[]
+  professionals: SafetyContact[]
+  safeEnvironment: string[]
+  reasonsToLive: string[]
+}
+
 export interface MindHavenExport {
-  version: 1
+  version: 1 | 2
   exportedAt: number
   moods: MoodEntry[]
   gratitude: GratitudeEntry[]
   reframes: ThoughtReframeEntry[]
   worries: WorryEntry[]
+  /** Added in version 2. */
+  safetyPlan?: SafetyPlan | null
 }
 
 export const MOOD_LABELS: Record<MoodValue, string> = {

@@ -7,8 +7,8 @@ export function CrisisBanner({ compact = false }: { compact?: boolean }) {
       role="note"
       className={
         compact
-          ? 'rounded-lg border border-clay-200 bg-clay-50 px-3 py-2 text-sm text-clay-500 dark:border-clay-500/30 dark:bg-clay-500/10 dark:text-clay-200'
-          : 'rounded-xl border border-clay-200 bg-clay-50 p-4 text-sm text-clay-500 dark:border-clay-500/30 dark:bg-clay-500/10 dark:text-clay-200'
+          ? 'rounded-lg border border-clay-200 bg-clay-50 px-3 py-2 text-sm text-clay-700 dark:border-clay-500/30 dark:bg-clay-500/10 dark:text-clay-200'
+          : 'rounded-xl border border-clay-200 bg-clay-50 p-4 text-sm text-clay-700 dark:border-clay-500/30 dark:bg-clay-500/10 dark:text-clay-200'
       }
     >
       <p>

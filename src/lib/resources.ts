@@ -2,10 +2,14 @@ export interface CrisisResource {
   name: string
   contact: string
   description: string
+  /** Set for web directories, so the contact can be rendered as a link. */
+  href?: string
 }
 
 export interface CountryResources {
   country: string
+  /** ISO 3166-1 alpha-2 region code, used to preselect a country from the browser's locale. */
+  code: string
   emergency: string
   resources: CrisisResource[]
 }
@@ -18,6 +22,7 @@ export interface CountryResources {
 export const CRISIS_DIRECTORY: CountryResources[] = [
   {
     country: 'United States',
+    code: 'US',
     emergency: '911',
     resources: [
       { name: '988 Suicide & Crisis Lifeline', contact: 'Call or text 988', description: '24/7, free and confidential support.' },
@@ -27,6 +32,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Canada',
+    code: 'CA',
     emergency: '911',
     resources: [
       { name: 'Talk Suicide Canada', contact: '1-833-456-4566 or text 45645', description: '24/7 bilingual support.' },
@@ -35,6 +41,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'United Kingdom',
+    code: 'GB',
     emergency: '999',
     resources: [
       { name: 'Samaritans', contact: '116 123', description: 'Free, 24/7, confidential emotional support.' },
@@ -43,6 +50,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Ireland',
+    code: 'IE',
     emergency: '112 or 999',
     resources: [
       { name: 'Samaritans Ireland', contact: '116 123', description: 'Free, 24/7, confidential emotional support.' },
@@ -51,6 +59,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Australia',
+    code: 'AU',
     emergency: '000',
     resources: [
       { name: 'Lifeline Australia', contact: '13 11 14', description: '24/7 crisis support and suicide prevention.' },
@@ -59,6 +68,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'New Zealand',
+    code: 'NZ',
     emergency: '111',
     resources: [
       { name: 'Need to Talk?', contact: 'Call or text 1737', description: '24/7 free call or text with a trained counsellor.' },
@@ -67,6 +77,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'India',
+    code: 'IN',
     emergency: '112',
     resources: [
       { name: 'iCall (TISS)', contact: '9152987821', description: 'Psychosocial helpline, Mon–Sat.' },
@@ -75,6 +86,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'South Africa',
+    code: 'ZA',
     emergency: '10111 / 112 (mobile)',
     resources: [
       { name: 'SADAG Mental Health Line', contact: '0800 21 22 23', description: '24/7 crisis line run by the SA Depression and Anxiety Group.' },
@@ -83,6 +95,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Germany',
+    code: 'DE',
     emergency: '112',
     resources: [
       { name: 'Telefonseelsorge', contact: '0800 111 0 111 or 0800 111 0 222', description: 'Free, 24/7, anonymous emotional support (also available as 116 123).' },
@@ -90,6 +103,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'France',
+    code: 'FR',
     emergency: '112',
     resources: [
       { name: 'Numéro national de prévention du suicide', contact: '3114', description: 'Free, 24/7 national suicide-prevention line.' },
@@ -97,6 +111,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Spain',
+    code: 'ES',
     emergency: '112',
     resources: [
       { name: 'Línea 024', contact: '024', description: 'Free, 24/7 national line for suicidal crisis, run by the Ministry of Health.' },
@@ -104,6 +119,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Italy',
+    code: 'IT',
     emergency: '112',
     resources: [
       { name: 'Telefono Amico Italia', contact: '02 2327 2327', description: 'Daily emotional-support helpline (10am–midnight).' },
@@ -111,6 +127,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Netherlands',
+    code: 'NL',
     emergency: '112',
     resources: [
       { name: '113 Zelfmoordpreventie', contact: 'Call 113 or 0800-0113', description: 'Free, 24/7 suicide-prevention line and chat.' },
@@ -118,6 +135,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Belgium',
+    code: 'BE',
     emergency: '112',
     resources: [
       { name: 'Zelfmoordlijn 1813 (Flanders)', contact: '1813', description: '24/7 suicide-prevention line, call or chat.' },
@@ -126,6 +144,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Switzerland',
+    code: 'CH',
     emergency: '112 / 144 (ambulance)',
     resources: [
       { name: 'Die Dargebotene Hand', contact: '143', description: '24/7 emotional-support helpline, also by chat.' },
@@ -133,6 +152,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Austria',
+    code: 'AT',
     emergency: '112',
     resources: [
       { name: 'Telefonseelsorge Österreich', contact: '142', description: 'Free, 24/7, anonymous emotional support.' },
@@ -140,6 +160,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Sweden',
+    code: 'SE',
     emergency: '112',
     resources: [
       { name: 'Mind Självmordslinjen', contact: '90101', description: '24/7 suicide-prevention line, call or chat.' },
@@ -147,6 +168,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Norway',
+    code: 'NO',
     emergency: '112 (police) / 113 (ambulance)',
     resources: [
       { name: 'Mental Helse Hjelpetelefonen', contact: '116 123', description: 'Free, 24/7 mental health support line.' },
@@ -154,6 +176,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Denmark',
+    code: 'DK',
     emergency: '112',
     resources: [
       { name: 'Livslinien', contact: '70 201 201', description: 'Daily suicide-prevention helpline (11am–4am).' },
@@ -161,6 +184,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Finland',
+    code: 'FI',
     emergency: '112',
     resources: [
       { name: 'MIELI Valtakunnallinen kriisipuhelin', contact: '09 2525 0111', description: 'National crisis helpline (Finnish/Swedish).' },
@@ -168,6 +192,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Poland',
+    code: 'PL',
     emergency: '112',
     resources: [
       { name: 'Telefon Zaufania dla Dorosłych', contact: '116 123', description: 'Free emotional-support line for adults in crisis.' },
@@ -175,6 +200,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Portugal',
+    code: 'PT',
     emergency: '112',
     resources: [
       { name: 'SOS Voz Amiga', contact: '213 544 545 / 912 802 669 / 963 524 660', description: 'Daily emotional-support helpline, evenings.' },
@@ -182,6 +208,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Japan',
+    code: 'JP',
     emergency: '110 (police) / 119 (fire/ambulance)',
     resources: [
       { name: 'TELL Lifeline', contact: '03-5774-0992', description: 'English-language support line for Japan residents.' },
@@ -190,6 +217,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'South Korea',
+    code: 'KR',
     emergency: '112 (police) / 119 (fire/ambulance)',
     resources: [
       { name: 'Suicide Prevention Hotline', contact: '1393', description: '24/7 national crisis line.' },
@@ -197,6 +225,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Philippines',
+    code: 'PH',
     emergency: '911',
     resources: [
       { name: 'National Center for Mental Health Crisis Hotline', contact: '1553 (landline), 0966-351-4518 / 0917-899-8727 (mobile)', description: '24/7 national crisis line.' },
@@ -204,6 +233,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Singapore',
+    code: 'SG',
     emergency: '999 (police) / 995 (ambulance)',
     resources: [
       { name: 'Samaritans of Singapore (SOS)', contact: '1-767, or text 9151-1767', description: '24/7 confidential emotional support.' },
@@ -211,6 +241,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Malaysia',
+    code: 'MY',
     emergency: '999',
     resources: [
       { name: 'Befrienders KL', contact: '03-76272929', description: '24/7 confidential emotional support.' },
@@ -218,6 +249,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Brazil',
+    code: 'BR',
     emergency: '192 (SAMU) / 190 (police)',
     resources: [
       { name: 'CVV — Centro de Valorização da Vida', contact: '188', description: 'Free, 24/7 confidential emotional support.' },
@@ -225,6 +257,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Mexico',
+    code: 'MX',
     emergency: '911',
     resources: [
       { name: 'SAPTEL', contact: '55 5259 8121', description: '24/7 crisis and emotional-support line.' },
@@ -233,6 +266,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Argentina',
+    code: 'AR',
     emergency: '911',
     resources: [
       { name: 'Centro de Asistencia al Suicida', contact: '135 (from Buenos Aires) or 011 5275-1135', description: '24/7 crisis line.' },
@@ -240,6 +274,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Chile',
+    code: 'CL',
     emergency: '133 (police) / 131 (ambulance)',
     resources: [
       { name: 'Salud Responde', contact: '600 360 7777', description: '24/7 health orientation line with mental-health support.' },
@@ -247,6 +282,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Colombia',
+    code: 'CO',
     emergency: '123',
     resources: [
       { name: 'Línea 106', contact: '106', description: 'Free national mental-health and emotional-support line.' },
@@ -254,6 +290,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Israel',
+    code: 'IL',
     emergency: '100 (police) / 101 (ambulance)',
     resources: [
       { name: 'ERAN', contact: '1201', description: '24/7 emotional first-aid helpline, also by chat.' },
@@ -261,6 +298,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Kenya',
+    code: 'KE',
     emergency: '999 / 112',
     resources: [
       { name: 'Befrienders Kenya', contact: '0722 178 177', description: 'Confidential emotional-support helpline.' },
@@ -268,6 +306,7 @@ export const CRISIS_DIRECTORY: CountryResources[] = [
   },
   {
     country: 'Hong Kong',
+    code: 'HK',
     emergency: '999',
     resources: [
       { name: 'The Samaritans Hong Kong', contact: '2896 0000', description: '24/7 multilingual emotional support.' },
@@ -280,16 +319,40 @@ export const INTERNATIONAL_RESOURCES: CrisisResource[] = [
   {
     name: 'Find A Helpline',
     contact: 'findahelpline.com',
+    href: 'https://findahelpline.com',
     description: 'A directory of crisis lines across 130+ countries — use if your country isn’t listed above.',
   },
   {
     name: 'Befrienders Worldwide',
     contact: 'befrienders.org',
+    href: 'https://befrienders.org',
     description: 'International network of emotional support helplines.',
   },
   {
     name: 'International Association for Suicide Prevention',
-    contact: 'iasp.info/resources/Crisis_Centres',
-    description: 'Directory of crisis centres worldwide.',
+    contact: 'iasp.info',
+    href: 'https://www.iasp.info',
+    description: 'Lists crisis centres worldwide — look for the crisis centres section.',
   },
 ]
+
+/**
+ * The first explicit region in a list of BCP-47 language tags, e.g. ['en-GB', 'en'] → 'GB'.
+ * A bare language ('en') says nothing reliable about where someone is, so it yields no guess.
+ */
+export function regionFromLanguages(languages: readonly string[]): string | null {
+  for (const tag of languages) {
+    try {
+      const region = new Intl.Locale(tag).region
+      if (region) return region.toUpperCase()
+    } catch {
+      // Malformed tag — ignore and try the next one.
+    }
+  }
+  return null
+}
+
+export function countryForRegion(region: string | null): CountryResources | null {
+  if (!region) return null
+  return CRISIS_DIRECTORY.find((c) => c.code === region) ?? null
+}

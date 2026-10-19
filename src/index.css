@@ -1,7 +1,22 @@
 @import 'tailwindcss';
 
+/*
+ * Inter (Latin subset, variable weight) is served from our own origin — see public/fonts/. Loading it from
+ * Google Fonts would send every visitor's IP to Google, which contradicts "nothing leaves your device",
+ * and wouldn't work offline. Licence: SIL OFL 1.1 (public/fonts/Inter-LICENSE-OFL.txt).
+ */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @theme {
-  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
 
   --color-sage-50: #f4f7f4;
   --color-sage-100: #e5ede5;
@@ -20,6 +35,9 @@
   --color-clay-300: #eeac93;
   --color-clay-400: #e3805e;
   --color-clay-500: #d3603c;
+  /* Text-safe tones: clay-500 on a light surface is only 3.6:1; these clear WCAG AA (5.4:1 / 7.5:1). */
+  --color-clay-600: #b4492a;
+  --color-clay-700: #8f3a1c;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

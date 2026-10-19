@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { ExerciseHeader } from '../../components/ExerciseHeader'
+import { Button, ButtonLink, Card } from '../../components/ui'
 
 const STEP_SECONDS = 15
 
@@ -49,25 +49,17 @@ export function BodyScan() {
     return (
       <div className="flex flex-col items-center gap-4 text-center">
         <ExerciseHeader title="Body scan" subtitle="You made it through — well done." />
-        <p className="text-4xl">🧘</p>
+        <p className="text-4xl" aria-hidden="true">
+          🧘
+        </p>
         <p className="text-sage-600 dark:text-sage-300">
-          Take a moment before you move on. Notice how your body feels now compared to when you
-          started.
+          Take a moment before you move on. Notice how your body feels now compared to when you started.
         </p>
         <div className="flex gap-3">
-          <button
-            type="button"
-            onClick={start}
-            className="rounded-full border border-sage-300 px-5 py-2 text-sm font-medium text-sage-700 hover:bg-sage-50 dark:border-sage-700 dark:text-sage-200 dark:hover:bg-sage-800"
-          >
+          <Button variant="secondary" onClick={start}>
             Do it again
-          </button>
-          <Link
-            to="/exercises"
-            className="rounded-full bg-sage-600 px-5 py-2 text-sm font-medium text-white hover:bg-sage-700"
-          >
-            Back to exercises
-          </Link>
+          </Button>
+          <ButtonLink to="/exercises">Back to exercises</ButtonLink>
         </div>
       </div>
     )
@@ -80,13 +72,7 @@ export function BodyScan() {
           title="Body scan"
           subtitle="A guided progressive relaxation. Find a comfortable position — you'll move through 7 areas of your body, about 15 seconds each."
         />
-        <button
-          type="button"
-          onClick={start}
-          className="rounded-full bg-sage-600 px-6 py-2.5 font-medium text-white hover:bg-sage-700"
-        >
-          Start
-        </button>
+        <Button onClick={start}>Start</Button>
       </div>
     )
   }
@@ -97,40 +83,29 @@ export function BodyScan() {
     <div className="flex flex-col items-center gap-6 text-center">
       <ExerciseHeader title="Body scan" subtitle="Follow along at your own pace." />
 
-      <div className="w-full max-w-sm rounded-2xl border border-sage-200 bg-white p-8 shadow-sm dark:border-sage-800 dark:bg-sage-900/40">
-        <div className="text-sm font-medium uppercase tracking-wide text-sage-400">
+      <Card size="lg" className="w-full max-w-sm">
+        <div className="text-sm font-medium uppercase tracking-wide text-sage-600">
           Step {stepIndex + 1} of {STEPS.length}
         </div>
         <div className="mt-2 text-xl font-semibold text-sage-800 dark:text-sage-100">{step.part}</div>
         <p className="mt-3 text-sage-600 dark:text-sage-300">{step.instruction}</p>
-        <div className="mt-4 text-3xl font-bold text-sage-500 dark:text-sage-400" aria-live="polite">
-          {secondsLeft}s
-        </div>
-      </div>
+        {/* A ticking countdown is visual only: announcing it every second would drown out the guidance. */}
+        <div className="mt-4 text-3xl font-bold text-sage-600 dark:text-sage-400">{secondsLeft}s</div>
+      </Card>
+
+      {/* Screen readers hear each new step once, when it begins. */}
+      <p className="sr-only" aria-live="polite">
+        {`Step ${stepIndex + 1} of ${STEPS.length}: ${step.part}. ${step.instruction}`}
+      </p>
 
       <div className="flex gap-3">
-        <button
-          type="button"
-          disabled={stepIndex === 0}
-          onClick={() => goTo(Math.max(0, stepIndex - 1))}
-          className="rounded-full border border-sage-300 px-4 py-2 text-sm font-medium text-sage-700 disabled:opacity-30 dark:border-sage-700 dark:text-sage-200"
-        >
+        <Button variant="secondary" disabled={stepIndex === 0} onClick={() => goTo(Math.max(0, stepIndex - 1))}>
           Back
-        </button>
-        <button
-          type="button"
-          onClick={() => setRunning((r) => !r)}
-          className="rounded-full border border-sage-300 px-4 py-2 text-sm font-medium text-sage-700 dark:border-sage-700 dark:text-sage-200"
-        >
+        </Button>
+        <Button variant="secondary" onClick={() => setRunning((r) => !r)}>
           {running ? 'Pause' : 'Resume'}
-        </button>
-        <button
-          type="button"
-          onClick={() => goTo(stepIndex + 1)}
-          className="rounded-full bg-sage-600 px-4 py-2 text-sm font-medium text-white hover:bg-sage-700"
-        >
-          {stepIndex === STEPS.length - 1 ? 'Finish' : 'Next'}
-        </button>
+        </Button>
+        <Button onClick={() => goTo(stepIndex + 1)}>{stepIndex === STEPS.length - 1 ? 'Finish' : 'Next'}</Button>
       </div>
     </div>
   )

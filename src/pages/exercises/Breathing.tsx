@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ExerciseHeader } from '../../components/ExerciseHeader'
+import { Button } from '../../components/ui'
 
 const PHASES = [
   { label: 'Breathe in', seconds: 4, scale: 1.4 },
@@ -53,9 +54,13 @@ export function Breathing() {
       />
 
       <div className="flex h-56 w-56 items-center justify-center">
+        {/*
+          The circle grows and shrinks with the breath. People who ask their device for reduced motion get
+          the same guidance from the text and countdown, without the animation.
+        */}
         <div
-          className="flex h-32 w-32 items-center justify-center rounded-full bg-sage-300 text-center text-sage-900 transition-transform duration-[4000ms] ease-in-out dark:bg-sage-600 dark:text-white"
-          style={{ transform: `scale(${running ? phase.scale : 1})` }}
+          className="flex h-32 w-32 scale-(--breath-scale) items-center justify-center rounded-full bg-sage-300 text-center text-sage-900 transition-transform duration-[4000ms] ease-in-out motion-reduce:scale-100 motion-reduce:transition-none dark:bg-sage-600 dark:text-white"
+          style={{ '--breath-scale': running ? phase.scale : 1 } as React.CSSProperties}
         >
           <div>
             <div className="font-semibold">{running ? phase.label : 'Ready?'}</div>
@@ -64,25 +69,20 @@ export function Breathing() {
         </div>
       </div>
 
+      {/* Announce only the phase changes (not every second) to screen-reader users. */}
+      <p className="sr-only" aria-live="polite">
+        {running ? phase.label : ''}
+      </p>
+
       {running ? (
         <>
-          <p className="text-sm text-sage-500 dark:text-sage-400">Cycles completed: {cycles}</p>
-          <button
-            type="button"
-            onClick={stop}
-            className="rounded-full border border-sage-300 px-6 py-2.5 font-medium text-sage-700 hover:bg-sage-50 dark:border-sage-700 dark:text-sage-200 dark:hover:bg-sage-800"
-          >
+          <p className="text-sm text-sage-600 dark:text-sage-400">Cycles completed: {cycles}</p>
+          <Button variant="secondary" onClick={stop}>
             Stop
-          </button>
+          </Button>
         </>
       ) : (
-        <button
-          type="button"
-          onClick={start}
-          className="rounded-full bg-sage-600 px-6 py-2.5 font-medium text-white hover:bg-sage-700"
-        >
-          {cycles > 0 ? 'Start again' : 'Start'}
-        </button>
+        <Button onClick={start}>{cycles > 0 ? 'Start again' : 'Start'}</Button>
       )}
     </div>
   )

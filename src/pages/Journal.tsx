@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Card, ConfirmButton, PageHeader } from '../components/ui'
 import { gratitudeStore, reframeStore, worryStore } from '../lib/storage'
+import { useCollection } from '../lib/useStore'
 import type { GratitudeEntry, ThoughtReframeEntry, WorryEntry } from '../lib/types'
 
 type Filter = 'all' | 'gratitude' | 'reframe' | 'worry'
@@ -21,18 +23,26 @@ function searchableText(item: JournalItem): string {
   }
 }
 
+function removeItem(item: JournalItem): void {
+  if (item.type === 'gratitude') gratitudeStore.remove(item.entry.id)
+  else if (item.type === 'reframe') reframeStore.remove(item.entry.id)
+  else worryStore.remove(item.entry.id)
+}
+
 const TYPE_LABEL: Record<JournalItem['type'], string> = {
   gratitude: '✨ Gratitude',
   reframe: '🔄 Thought reframe',
   worry: '📦 Worry, set aside',
 }
 
+const FILTERS: Filter[] = ['all', 'gratitude', 'reframe', 'worry']
+
 export function Journal() {
   const [filter, setFilter] = useState<Filter>('all')
   const [query, setQuery] = useState('')
-  const gratitude = useMemo(() => gratitudeStore.all(), [])
-  const reframes = useMemo(() => reframeStore.all(), [])
-  const worries = useMemo(() => worryStore.all(), [])
+  const gratitude = useCollection(gratitudeStore)
+  const reframes = useCollection(reframeStore)
+  const worries = useCollection(worryStore)
 
   const combined = useMemo(() => {
     const g: JournalItem[] = gratitude.map((e) => ({ type: 'gratitude', timestamp: e.timestamp, entry: e }))
@@ -49,24 +59,23 @@ export function Journal() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-sage-800 dark:text-sage-50">Your journal</h1>
-        <p className="mt-1 text-sage-600 dark:text-sage-300">
-          Gratitude notes, thought reframes, and worries you've set aside — kept only on this device.
-        </p>
-      </div>
+      <PageHeader
+        title="Your journal"
+        subtitle="Gratitude notes, thought reframes, and worries you've set aside — kept only on this device."
+      />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-2">
-          {(['all', 'gratitude', 'reframe', 'worry'] as Filter[]).map((f) => (
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by type">
+          {FILTERS.map((f) => (
             <button
               key={f}
               type="button"
+              aria-pressed={filter === f}
               onClick={() => setFilter(f)}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium capitalize ${
+              className={`min-h-9 rounded-full px-3 py-1.5 text-sm font-medium capitalize ${
                 filter === f
                   ? 'bg-sage-600 text-white'
-                  : 'border border-sage-200 text-sage-600 hover:bg-sage-50 dark:border-sage-800 dark:text-sage-300 dark:hover:bg-sage-800/50'
+                  : 'border border-sage-200 text-sage-700 hover:bg-sage-50 dark:border-sage-800 dark:text-sage-300 dark:hover:bg-sage-800/50'
               }`}
             >
               {f}
@@ -81,68 +90,85 @@ export function Journal() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search your journal..."
-              className="w-full rounded-full border border-sage-200 bg-white px-4 py-1.5 text-sm outline-none focus:border-sage-500 dark:border-sage-800 dark:bg-sage-900/40"
+              className="min-h-10 w-full rounded-full border border-sage-200 bg-white px-4 py-1.5 text-sm outline-none focus:border-sage-500 dark:border-sage-800 dark:bg-sage-900/40"
             />
           </label>
         )}
       </div>
 
       {isEmptyOverall ? (
-        <div className="rounded-xl border border-dashed border-sage-300 p-8 text-center text-sage-500 dark:border-sage-700 dark:text-sage-400">
+        <div className="rounded-xl border border-dashed border-sage-300 p-8 text-center text-sage-700 dark:border-sage-700 dark:text-sage-400">
           <p>Nothing here yet.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-3">
-            <Link to="/exercises/gratitude" className="text-sage-600 underline dark:text-sage-300">
+            <Link to="/exercises/gratitude" className="text-sage-700 underline dark:text-sage-300">
               Write a gratitude note
             </Link>
-            <Link to="/exercises/reframe" className="text-sage-600 underline dark:text-sage-300">
+            <Link to="/exercises/reframe" className="text-sage-700 underline dark:text-sage-300">
               Try thought reframing
             </Link>
-            <Link to="/exercises/worry-time" className="text-sage-600 underline dark:text-sage-300">
+            <Link to="/exercises/worry-time" className="text-sage-700 underline dark:text-sage-300">
               Set a worry aside
             </Link>
           </div>
         </div>
       ) : combined.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-sage-300 p-8 text-center text-sage-500 dark:border-sage-700 dark:text-sage-400">
+        <div className="rounded-xl border border-dashed border-sage-300 p-8 text-center text-sage-700 dark:border-sage-700 dark:text-sage-400">
           <p>No entries match your search.</p>
         </div>
       ) : (
         <ul className="flex flex-col gap-3">
           {combined.map((item) => (
-            <li
-              key={item.entry.id}
-              className="rounded-xl border border-sage-200 bg-white p-4 shadow-sm dark:border-sage-800 dark:bg-sage-900/40"
-            >
-              <div className="mb-2 flex items-center justify-between text-xs text-sage-500 dark:text-sage-400">
-                <span className="font-medium uppercase tracking-wide">{TYPE_LABEL[item.type]}</span>
-                <span>{new Date(item.timestamp).toLocaleString()}</span>
-              </div>
-              {item.type === 'gratitude' && (
-                <ul className="list-inside list-disc text-sage-700 dark:text-sage-200">
-                  {item.entry.items.map((g, i) => (
-                    <li key={i}>{g}</li>
-                  ))}
-                </ul>
-              )}
-              {item.type === 'worry' && <p className="text-sage-700 dark:text-sage-200">{item.entry.worry}</p>}
-              {item.type === 'reframe' && (
-                <dl className="flex flex-col gap-1.5 text-sm">
-                  <div>
-                    <dt className="font-medium text-sage-700 dark:text-sage-200">Situation</dt>
-                    <dd className="text-sage-600 dark:text-sage-300">{item.entry.situation}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium text-sage-700 dark:text-sage-200">Automatic thought</dt>
-                    <dd className="text-sage-600 dark:text-sage-300">{item.entry.automaticThought}</dd>
-                  </div>
-                  {item.entry.balancedThought && (
+            <li key={`${item.type}-${item.entry.id}`}>
+              <Card>
+                <div className="mb-2 flex items-center justify-between gap-3 text-xs text-sage-700 dark:text-sage-400">
+                  <span className="font-medium uppercase tracking-wide">{TYPE_LABEL[item.type]}</span>
+                  <span>{new Date(item.timestamp).toLocaleString()}</span>
+                </div>
+                {item.type === 'gratitude' && (
+                  <ul className="list-inside list-disc text-sage-700 dark:text-sage-200">
+                    {item.entry.items.map((g, i) => (
+                      <li key={i}>{g}</li>
+                    ))}
+                  </ul>
+                )}
+                {item.type === 'worry' && (
+                  <p className="whitespace-pre-wrap break-words text-sage-700 dark:text-sage-200">{item.entry.worry}</p>
+                )}
+                {item.type === 'reframe' && (
+                  <dl className="flex flex-col gap-1.5 text-sm">
                     <div>
-                      <dt className="font-medium text-sage-700 dark:text-sage-200">Balanced thought</dt>
-                      <dd className="text-sage-600 dark:text-sage-300">{item.entry.balancedThought}</dd>
+                      <dt className="font-medium text-sage-700 dark:text-sage-200">Situation</dt>
+                      <dd className="whitespace-pre-wrap break-words text-sage-700 dark:text-sage-300">
+                        {item.entry.situation}
+                      </dd>
                     </div>
-                  )}
-                </dl>
-              )}
+                    <div>
+                      <dt className="font-medium text-sage-700 dark:text-sage-200">Automatic thought</dt>
+                      <dd className="whitespace-pre-wrap break-words text-sage-700 dark:text-sage-300">
+                        {item.entry.automaticThought}
+                      </dd>
+                    </div>
+                    {item.entry.balancedThought && (
+                      <div>
+                        <dt className="font-medium text-sage-700 dark:text-sage-200">Balanced thought</dt>
+                        <dd className="whitespace-pre-wrap break-words text-sage-700 dark:text-sage-300">
+                          {item.entry.balancedThought}
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                )}
+                <div className="mt-3 flex justify-end">
+                  <ConfirmButton
+                    size="sm"
+                    confirmLabel="Confirm delete"
+                    aria-label={`Delete this ${item.type} entry`}
+                    onConfirm={() => removeItem(item)}
+                  >
+                    Delete
+                  </ConfirmButton>
+                </div>
+              </Card>
             </li>
           ))}
         </ul>

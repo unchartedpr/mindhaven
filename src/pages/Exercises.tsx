@@ -4,6 +4,9 @@ import { Grounding } from './exercises/Grounding'
 import { Reframe } from './exercises/Reframe'
 import { Gratitude } from './exercises/Gratitude'
 import { WorryTime } from './exercises/WorryTime'
+import { NotFound } from './NotFound'
+import { PageHeader } from '../components/ui'
+import { cardClass } from '../components/uiClasses'
 import { BodyScan } from './exercises/BodyScan'
 
 const EXERCISES = [
@@ -54,25 +57,19 @@ const EXERCISES = [
 function ExercisesList() {
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-sage-800 dark:text-sage-50">Coping exercises</h1>
-        <p className="mt-1 text-sage-600 dark:text-sage-300">
-          Short, evidence-informed practices you can do anytime. Pick whatever feels right.
-        </p>
-      </div>
+      <PageHeader
+        title="Coping exercises"
+        subtitle="Short, evidence-informed practices you can do anytime. Pick whatever feels right."
+      />
       <div className="grid gap-3 sm:grid-cols-2">
         {EXERCISES.map((ex) => (
-          <Link
-            key={ex.to}
-            to={ex.to}
-            className="flex flex-col gap-1 rounded-xl border border-sage-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-sage-800 dark:bg-sage-900/40"
-          >
+          <Link key={ex.to} to={ex.to} className={cardClass('default', true, 'flex flex-col gap-1')}>
             <span className="text-2xl" aria-hidden="true">
               {ex.emoji}
             </span>
             <span className="font-medium text-sage-800 dark:text-sage-100">{ex.title}</span>
-            <span className="text-sm text-sage-500 dark:text-sage-400">{ex.desc}</span>
-            <span className="mt-1 text-xs font-medium uppercase tracking-wide text-sage-400">{ex.time}</span>
+            <span className="text-sm text-sage-600 dark:text-sage-400">{ex.desc}</span>
+            <span className="mt-1 text-xs font-medium uppercase tracking-wide text-sage-600">{ex.time}</span>
           </Link>
         ))}
       </div>
@@ -90,6 +87,7 @@ export function Exercises() {
       <Route path="reframe" element={<Reframe />} />
       <Route path="worry-time" element={<WorryTime />} />
       <Route path="gratitude" element={<Gratitude />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

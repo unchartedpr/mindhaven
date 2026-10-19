@@ -5,9 +5,8 @@ mood, work through a few short guided exercises, keep a private journal, and
 find real crisis resources if you ever need them — all without creating an
 account or sending your data anywhere.
 
-**Live app:** deployed via GitHub Pages once this repo is public — see
-[Deployment](#deployment) below. Until then, run it locally (see
-[Getting started](#getting-started)).
+**Live app:** <https://mindhaven.techlanes.io> — free, no sign-up, works offline once loaded, and can be
+installed to your home screen.
 
 ## Why this exists
 
@@ -23,22 +22,17 @@ set of tools — the kind you'd want open in a tab (or on your home screen) at
 
 ## Features
 
-- **Mood check-in** — a quick, judgment-free way to log how you're feeling, with optional tags and notes, a 14-day trend chart, and a weekly insight comparing this week's average mood to last week's.
-- **Streaks** — gentle positive reinforcement for showing up for yourself.
-- **Guided exercises**
-  - 🌬️ Box breathing (4-4-4-4 guided timer)
-  - 🌳 5-4-3-2-1 grounding technique
-  - 🧘 Guided body scan (progressive relaxation)
-  - 🔄 CBT-style thought reframing worksheet
-  - 📦 Worry time (write a worry down, then consciously set it aside)
-  - ✨ Gratitude notes
-- **Journal** — a private, searchable history of your gratitude notes, thought reframes, and worries.
-- **Crisis resources** — a curated directory covering 28 countries across every populated continent (988, Crisis Text Line, Samaritans, Lifeline, and more), plus international directories for anywhere else.
-- **Backup & restore** — download all your data as a single JSON file any time, and restore it later or on another device, from Settings.
-- **Installable & offline-capable** — add it to your home screen; it keeps working with no connection.
-- **Privacy by design** — no accounts, no analytics, no network requests for your data.
-- **Onboarding** on first visit explains the privacy model and that this isn't crisis care, before you start entering anything.
-- Light/dark theme, mobile bottom navigation, keyboard-accessible, screen-reader-tested (automated `axe-core` audits on every page).
+- **Mood check-in** — quick and judgment-free, with optional tags and a note. After saving you get gentle, relevant next steps (a breathing exercise, grounding, support lines for the hardest days). You can delete any entry.
+- **Insights** — averages and best/hardest days over 7, 30 or 90 days, a colour-*and*-emoji mood calendar, and which tags tend to go with better or worse days (worded as patterns, never causes). Streaks that stay alive until the end of today.
+- **Safety plan** — write your own plan for a crisis in the standard Stanley–Brown structure (warning signs, coping steps, people and places, who to ask for help, professionals, making things safer, reasons to live), with tap-to-call, saved on your device and printable.
+- **Guided exercises** — box breathing, 5-4-3-2-1 grounding, body scan, thought reframing, worry time, gratitude notes. Respects reduced-motion settings.
+- **Journal** — a private, searchable history of your gratitude notes, reframes and worries.
+- **Crisis resources** — a **Get help** button on every page, and a directory of **35 countries** plus worldwide directories. The country is preselected only when your browser states an explicit region. *The numbers come from public sources and have not been independently verified — see [the roadmap](docs/ROADMAP.md#next-high-value-low-risk).*
+- **Your data is yours** — download a JSON backup (restoring merges and never overwrites), export check-ins as a spreadsheet-safe CSV, add a daily reminder to any calendar (`.ics`), get a nudge to back up, and delete everything in one step. Warns you if your browser isn't saving data.
+- **Resilient** — damaged or hand-edited data is skipped rather than crashing the app; if something does go wrong you can still download your data and reach help.
+- **Installable & offline** — a PWA with home-screen shortcuts for Check in, Get help and Safety plan.
+- **Private by construction** — no accounts, analytics, or third-party requests (the font is self-hosted). A strict Content-Security-Policy is enforced, and an automated test confirms every page only talks to its own origin.
+- **Accessible** — automated axe-core checks in a real browser (including colour contrast) on every page, in light and dark, on phone and desktop; focus-managed dialogs; keyboard-operable controls; 44 px touch targets.
 
 ## Important disclaimer
 
@@ -50,42 +44,40 @@ the in-app Resources page, or [findahelpline.com](https://findahelpline.com)).
 
 ## Getting started
 
-Requires [Node.js](https://nodejs.org/) 20+.
+Requires [Node.js](https://nodejs.org/) 22+.
 
 ```bash
-npm install
-npm run dev       # start the dev server
-npm run test      # run the test suite
-npm run build     # type-check and build for production
-npm run lint      # lint with oxlint
+npm ci
+npm run dev            # start the dev server
+npm run check          # type-check, lint, unit tests
+npm run test:coverage  # unit tests with coverage thresholds
+npm run build          # type-check and build for production
+npm run e2e            # real-browser tests (build first; `npx playwright install chromium` once)
 ```
 
 ## Tech stack
 
 - [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/), built with [Vite](https://vite.dev/)
-- [Tailwind CSS v4](https://tailwindcss.com/) for styling
-- [React Router](https://reactrouter.com/) (hash-based routing, for static hosting)
-- [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) for the installable, offline-capable service worker
-- [Vitest](https://vitest.dev/), [Testing Library](https://testing-library.com/), and [axe-core](https://github.com/dequelabs/axe-core) (via `vitest-axe`) for tests, including automated accessibility checks — 80+ tests total
-- No backend, no database — persistence is entirely client-side (`localStorage`)
+- [Tailwind CSS v4](https://tailwindcss.com/); [React Router](https://reactrouter.com/) (hash routing, for static hosting)
+- [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) for the offline-capable, installable service worker
+- [Vitest](https://vitest.dev/) + Testing Library (280+ unit/component tests, ~95% line coverage) and [Playwright](https://playwright.dev/) + [axe-core](https://github.com/dequelabs/axe-core) (90+ real-browser tests)
+- No backend, no database — persistence is client-side (`localStorage`), behind a validated, reactive storage layer
+
+More: [architecture](docs/ARCHITECTURE.md) · [architecture review](docs/ARCHITECTURE_REVIEW.md) · [roadmap](docs/ROADMAP.md)
 
 ## Deployment
 
-This repo includes GitHub Actions workflows:
+- `ci.yml` runs lint, tests with coverage, the production build, and the e2e suite on every pull request and every push to a branch other than `main`.
+- `deploy.yml` runs the same gates on every push to `main`, then publishes to GitHub Pages at the custom domain in `public/CNAME`. A failing check blocks the deploy.
+- Dependabot opens weekly, grouped dependency updates.
 
-- `ci.yml` runs lint, tests, and a production build on every pull request.
-- `deploy.yml` builds the app and publishes it to GitHub Pages on every push
-  to `main`.
-
-To enable Pages deployment: the repo needs to be public (or on a GitHub plan
-that supports Pages for private repos), then in **Settings → Pages**, set the
-source to **GitHub Actions**.
+Pages must be set to **Settings → Pages → Source: GitHub Actions**.
 
 ## Contributing
 
 Issues and pull requests are welcome — especially additions or corrections to
-the crisis resource directory in `src/lib/resources.ts`, translations, and
-accessibility improvements. Please keep the privacy-first, no-tracking,
+the crisis resource directory in `src/lib/resources.ts` (with a link to the service's own page), translations reviewed by native speakers, and
+accessibility improvements. See [CONTRIBUTING.md](CONTRIBUTING.md). Please keep the privacy-first, no-tracking,
 no-account philosophy intact.
 
 ## License

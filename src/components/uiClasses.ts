@@ -9,7 +9,7 @@ const BUTTON_BASE =
 
 const BUTTON_SIZES: Record<ButtonSize, string> = {
   md: 'min-h-11 px-5 py-2 text-sm',
-  sm: 'min-h-9 px-3 py-1 text-xs',
+  sm: 'min-h-11 px-3 py-1 text-xs',
 }
 
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {

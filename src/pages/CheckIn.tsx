@@ -53,7 +53,7 @@ export function CheckIn() {
               type="button"
               aria-pressed={tags.includes(tag)}
               onClick={() => toggleTag(tag)}
-              className={`min-h-9 rounded-full border px-3 py-1 text-sm capitalize transition-colors ${
+              className={`min-h-11 rounded-full border px-3 py-1 text-sm capitalize transition-colors ${
                 tags.includes(tag)
                   ? 'border-sage-600 bg-sage-600 text-white'
                   : 'border-sage-200 text-sage-700 hover:bg-sage-50 dark:border-sage-800 dark:text-sage-300 dark:hover:bg-sage-800/50'

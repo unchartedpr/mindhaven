@@ -104,7 +104,7 @@ describe('Journal page', () => {
       fireEvent.click(screen.getByRole('button', { name: /delete this worry entry/i }))
       expect(worryStore.all()).toHaveLength(1) // first click only arms it
 
-      fireEvent.click(screen.getByRole('button', { name: /delete this worry entry/i }))
+      fireEvent.click(screen.getByRole('button', { name: /confirm delete/i }))
       expect(worryStore.all()).toHaveLength(0)
       expect(screen.queryByText('delete me')).not.toBeInTheDocument()
       expect(screen.getByText('keep me')).toBeInTheDocument()
@@ -123,7 +123,7 @@ describe('Journal page', () => {
       for (const type of ['gratitude', 'reframe']) {
         const name = new RegExp(`delete this ${type} entry`, 'i')
         fireEvent.click(screen.getByRole('button', { name }))
-        fireEvent.click(screen.getByRole('button', { name }))
+        fireEvent.click(screen.getByRole('button', { name: /confirm delete/i }))
       }
       expect(gratitudeStore.all()).toHaveLength(0)
       expect(reframeStore.all()).toHaveLength(0)

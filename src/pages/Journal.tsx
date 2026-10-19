@@ -72,7 +72,7 @@ export function Journal() {
               type="button"
               aria-pressed={filter === f}
               onClick={() => setFilter(f)}
-              className={`min-h-9 rounded-full px-3 py-1.5 text-sm font-medium capitalize ${
+              className={`min-h-11 min-w-11 rounded-full px-3 py-1.5 text-sm font-medium capitalize ${
                 filter === f
                   ? 'bg-sage-600 text-white'
                   : 'border border-sage-200 text-sage-700 hover:bg-sage-50 dark:border-sage-800 dark:text-sage-300 dark:hover:bg-sage-800/50'
@@ -90,7 +90,7 @@ export function Journal() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search your journal..."
-              className="min-h-10 w-full rounded-full border border-sage-200 bg-white px-4 py-1.5 text-sm outline-none focus:border-sage-500 dark:border-sage-800 dark:bg-sage-900/40"
+              className="min-h-11 w-full rounded-full border border-sage-200 bg-white px-4 py-1.5 text-sm outline-none focus:border-sage-500 dark:border-sage-800 dark:bg-sage-900/40"
             />
           </label>
         )}

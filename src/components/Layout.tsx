@@ -65,7 +65,7 @@ export function Layout() {
       </a>
       <header className="sticky top-0 z-30 print:hidden border-b border-sage-200 bg-white/80 backdrop-blur dark:border-sage-800 dark:bg-[#141a15]/80">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3">
-          <NavLink to="/" className="flex items-center gap-2 text-lg font-semibold text-sage-800 dark:text-sage-100">
+          <NavLink to="/" className="flex min-h-11 items-center gap-2 text-lg font-semibold text-sage-800 dark:text-sage-100">
             <span aria-hidden="true">🌿</span> MindHaven
           </NavLink>
           <nav aria-label="Main navigation" className="hidden items-center gap-1 sm:flex">
@@ -90,7 +90,7 @@ export function Layout() {
             <NavLink
               to="/resources"
               className={({ isActive }) =>
-                `flex min-h-10 items-center rounded-full border px-3 text-sm font-medium transition-colors ${
+                `flex min-h-11 items-center rounded-full border px-3 text-sm font-medium transition-colors ${
                   isActive
                     ? 'border-clay-600 bg-clay-100 text-clay-700 dark:bg-clay-500/20 dark:text-clay-200'
                     : 'border-clay-300 text-clay-700 hover:bg-clay-50 dark:border-clay-500/40 dark:text-clay-200 dark:hover:bg-clay-500/10'
@@ -103,7 +103,7 @@ export function Layout() {
               to="/settings"
               aria-label="Settings and data"
               className={({ isActive }) =>
-                `flex size-10 items-center justify-center rounded-full border transition-colors ${
+                `flex size-11 items-center justify-center rounded-full border transition-colors ${
                   isActive
                     ? 'border-sage-500 bg-sage-100 text-sage-800 dark:bg-sage-800 dark:text-sage-100'
                     : 'border-sage-200 text-sage-700 hover:bg-sage-100 dark:border-sage-800 dark:text-sage-200 dark:hover:bg-sage-800'
@@ -116,7 +116,7 @@ export function Layout() {
               type="button"
               onClick={toggle}
               aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-              className="flex size-10 items-center justify-center rounded-full border border-sage-200 text-sage-700 hover:bg-sage-100 dark:border-sage-800 dark:text-sage-200 dark:hover:bg-sage-800"
+              className="flex size-11 items-center justify-center rounded-full border border-sage-200 text-sage-700 hover:bg-sage-100 dark:border-sage-800 dark:text-sage-200 dark:hover:bg-sage-800"
             >
               <span aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
             </button>

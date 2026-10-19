@@ -136,6 +136,8 @@ export function ConfirmButton({
         }}
         onBlur={() => setArmed(false)}
         {...props}
+        // While armed the visible text changes, so the accessible name must change with it.
+        {...(armed ? { 'aria-label': confirmLabel } : {})}
       >
         {armed ? confirmLabel : children}
       </Button>

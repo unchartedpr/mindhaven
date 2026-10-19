@@ -76,7 +76,7 @@ export function Insights() {
             type="button"
             aria-pressed={days === r.days}
             onClick={() => setDays(r.days)}
-            className={`min-h-9 rounded-full px-4 py-1.5 text-sm font-medium ${
+            className={`min-h-11 rounded-full px-4 py-1.5 text-sm font-medium ${
               days === r.days
                 ? 'bg-sage-600 text-white'
                 : 'border border-sage-200 text-sage-700 hover:bg-sage-50 dark:border-sage-800 dark:text-sage-300 dark:hover:bg-sage-800/50'

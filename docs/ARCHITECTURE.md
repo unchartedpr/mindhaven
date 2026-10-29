@@ -68,7 +68,7 @@ Dependencies point downwards only. Anything in "Domain logic" can be tested with
 * **CI** (`ci.yml`): every PR and every non-`main` push → lint, unit tests with coverage thresholds, build,
   Playwright e2e.
 * **Deploy** (`deploy.yml`): push to `main` → the same gates, then publish to GitHub Pages at
-  <https://mindhaven.techlanes.io>. A failing e2e blocks the deploy.
+  <https://unchartedpr.github.io/mindhaven/>. A failing e2e blocks the deploy.
 * Dependabot opens weekly grouped updates for npm and GitHub Actions.
 
 ## Testing strategy

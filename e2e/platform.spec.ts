@@ -8,7 +8,7 @@ test.describe('privacy and security', () => {
     const problems = watchForProblems(page)
     await seed(page, sampleData())
     for (const route of ROUTES) {
-      await page.goto(`/#${route}`)
+      await page.goto(`./#${route}`)
       await waitForPage(page)
     }
     expect([...problems.hosts]).toEqual(['localhost:4173'])
@@ -17,7 +17,7 @@ test.describe('privacy and security', () => {
   })
 
   test('ships a strict content security policy and sends no referrer', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('./')
     const csp = await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute('content')
     expect(csp).toContain("default-src 'self'")
     expect(csp).toContain("connect-src 'self'")
@@ -28,7 +28,7 @@ test.describe('privacy and security', () => {
 
   test('the policy actually blocks an injected inline script', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/')
+    await page.goto('./#/')
     await waitForPage(page)
     const ran = await page.evaluate(() => {
       const el = document.createElement('script')
@@ -52,7 +52,7 @@ test.describe('resilience', () => {
       'mindhaven:v1:safety-plan': { warningSigns: 'not a list', supportPeople: [{ name: 5, phone: ['x'] }] },
     })
     for (const route of ROUTES) {
-      await page.goto(`/#${route}`)
+      await page.goto(`./#${route}`)
       await waitForPage(page)
       await expect(page.getByText(/something went wrong/i)).toHaveCount(0)
     }
@@ -64,14 +64,14 @@ test.describe('resilience', () => {
       localStorage.setItem('mindhaven:v1:onboarded', 'true')
       localStorage.setItem('mindhaven:v1:moods', '{not json')
     })
-    await page.goto('/#/journal')
+    await page.goto('./#/journal')
     await waitForPage(page)
     await expect(page.getByRole('heading', { name: /your journal/i })).toBeVisible()
   })
 
   test('an unknown address shows a helpful page with a way out', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/definitely-not-a-page')
+    await page.goto('./#/definitely-not-a-page')
     await waitForPage(page)
     await expect(page.getByRole('heading', { level: 1 })).toContainText(/not found|couldn’t find|can’t find/i)
     await expect(page.getByRole('link', { name: /get help/i }).first()).toBeVisible()
@@ -83,7 +83,7 @@ test.describe('offline', () => {
 
   test('works with no connection once it has been loaded', async ({ page, context }) => {
     await seed(page)
-    await page.goto('/#/exercises/breathing')
+    await page.goto('./#/exercises/breathing')
     await waitForPage(page)
     // Wait for the service worker to take control and finish precaching.
     await page.evaluate(async () => {
@@ -96,7 +96,7 @@ test.describe('offline', () => {
     await page.reload()
     await waitForPage(page)
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-    await page.goto('/#/resources')
+    await page.goto('./#/resources')
     await waitForPage(page)
     await expect(page.getByLabel(/select your country/i)).toBeVisible()
   })
@@ -106,7 +106,7 @@ test.describe('motion', () => {
   test('the breathing circle is static for people who prefer reduced motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await seed(page)
-    await page.goto('/#/exercises/breathing')
+    await page.goto('./#/exercises/breathing')
     await page.getByRole('button', { name: /^start$/i }).click()
     await page.waitForTimeout(1500)
     const scale = await page.evaluate(() => {
@@ -124,12 +124,12 @@ test.describe('layout', () => {
     test('uses the bottom navigation, and nothing overflows sideways', async ({ page }) => {
       await seed(page, sampleData())
       for (const route of ROUTES) {
-        await page.goto(`/#${route}`)
+        await page.goto(`./#${route}`)
         await waitForPage(page)
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
         expect(overflow, `horizontal overflow on ${route}`).toBeLessThanOrEqual(0)
       }
-      await page.goto('/#/')
+      await page.goto('./#/')
       await waitForPage(page)
       const bottomNav = page.getByRole('navigation', { name: /mobile|bottom|main/i }).last()
       await expect(bottomNav).toBeVisible()
@@ -139,7 +139,7 @@ test.describe('layout', () => {
       await seed(page, sampleData())
       const tooSmall: string[] = []
       for (const route of ['/', '/check-in', '/journal', '/resources', '/settings']) {
-        await page.goto(`/#${route}`)
+        await page.goto(`./#${route}`)
         await waitForPage(page)
         const found = await page.evaluate(() => {
           const out: string[] = []
@@ -162,7 +162,7 @@ test.describe('layout', () => {
 
     test('shows the top navigation and hides the phone bar', async ({ page }) => {
       await seed(page)
-      await page.goto('/#/')
+      await page.goto('./#/')
       await waitForPage(page)
       await expect(page.getByRole('link', { name: 'Insights', exact: true }).first()).toBeVisible()
       const visibleNavs = await page.getByRole('navigation').evaluateAll((els) => els.filter((e) => (e as HTMLElement).offsetParent !== null).length)

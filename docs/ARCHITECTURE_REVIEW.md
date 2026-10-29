@@ -1,6 +1,6 @@
 # MindHaven — architecture review
 
-*October 2026. Scope: the whole app as deployed at <https://mindhaven.techlanes.io> (v1), reviewed
+*October 2026. Scope: the whole app as deployed at <https://unchartedpr.github.io/mindhaven/> (v1), reviewed
 as an architect would before a public launch: correctness, resilience, privacy, security,
 accessibility, performance, maintainability, and product gaps.*
 

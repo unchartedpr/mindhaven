@@ -9,7 +9,7 @@ async function contents(download: Download): Promise<string> {
 test.describe('welcome dialog', () => {
   test.beforeEach(async ({ page }) => {
     await seed(page, {})
-    await page.goto('/#/')
+    await page.goto('./#/')
   })
 
   test('traps keyboard focus inside the dialog, and leaves the page behind inert', async ({ page }) => {
@@ -42,7 +42,7 @@ test.describe('welcome dialog', () => {
 test.describe('everyday journey', () => {
   test('check in, get relevant suggestions, see it in insights, then delete it', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/check-in')
+    await page.goto('./#/check-in')
 
     await page.getByRole('radio', { name: 'Rough' }).click()
     await page.getByRole('button', { name: 'anxious' }).click()
@@ -76,7 +76,7 @@ test.describe('everyday journey', () => {
         { id: 'b', timestamp: now - 2 * DAY, mood: 3, tags: [] },
       ],
     })
-    await page.goto('/#/')
+    await page.goto('./#/')
     const streak = page.getByRole('heading', { name: /your streak/i }).locator('xpath=../..')
     await expect(streak).toContainText('2')
     await expect(streak).toContainText(/check in today to keep it going/i)
@@ -87,8 +87,8 @@ test.describe('everyday journey', () => {
     const second = await context.newPage()
     await seed(first)
     await seed(second)
-    await first.goto('/#/journal')
-    await second.goto('/#/exercises/worry-time')
+    await first.goto('./#/journal')
+    await second.goto('./#/exercises/worry-time')
     await waitForPage(first)
     await expect(first.getByText(/nothing here yet/i)).toBeVisible()
 
@@ -100,11 +100,11 @@ test.describe('everyday journey', () => {
 
   test('entries survive a reload', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/exercises/gratitude')
+    await page.goto('./#/exercises/gratitude')
     await page.getByLabel('Gratitude 1 of 3').fill('a good coffee')
     await page.getByRole('button', { name: /^save$/i }).click()
     await page.reload()
-    await page.goto('/#/journal')
+    await page.goto('./#/journal')
     await expect(page.getByText('a good coffee')).toBeVisible()
   })
 })
@@ -112,7 +112,7 @@ test.describe('everyday journey', () => {
 test.describe('keyboard and screen-reader behaviour', () => {
   test('the mood picker is one tab stop and uses arrow keys', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/check-in')
+    await page.goto('./#/check-in')
     await page.getByRole('radio', { name: 'Okay' }).focus()
     await page.keyboard.press('ArrowRight')
     await expect(page.getByRole('radio', { name: 'Good' })).toBeFocused()
@@ -123,7 +123,7 @@ test.describe('keyboard and screen-reader behaviour', () => {
 
   test('navigating updates the title, resets scroll, and moves focus to the new content', async ({ page }) => {
     await seed(page, sampleData())
-    await page.goto('/#/journal')
+    await page.goto('./#/journal')
     await waitForPage(page)
     await expect(page).toHaveTitle('Journal · MindHaven')
     await page.evaluate(() => window.scrollTo(0, 400))
@@ -137,7 +137,7 @@ test.describe('keyboard and screen-reader behaviour', () => {
 
   test('"Skip to content" works without leaving the page', async ({ page }) => {
     await seed(page, sampleData())
-    await page.goto('/#/journal')
+    await page.goto('./#/journal')
     await waitForPage(page)
     await page.keyboard.press('Tab')
     await expect(page.getByText('Skip to content')).toBeFocused()
@@ -150,7 +150,7 @@ test.describe('keyboard and screen-reader behaviour', () => {
   test('"Get help" is reachable from every page', async ({ page }) => {
     await seed(page, sampleData())
     for (const route of ['/', '/journal', '/exercises/breathing', '/settings', '/insights']) {
-      await page.goto(`/#${route}`)
+      await page.goto(`./#${route}`)
       await waitForPage(page)
       await expect(page.getByRole('link', { name: 'Get help' })).toBeVisible()
     }
@@ -160,7 +160,7 @@ test.describe('keyboard and screen-reader behaviour', () => {
 test.describe('backup and restore', () => {
   test('a downloaded backup restores everything after a full wipe', async ({ page }) => {
     await seed(page, sampleData())
-    await page.goto('/#/settings')
+    await page.goto('./#/settings')
     await waitForPage(page)
 
     const [backup] = await Promise.all([
@@ -185,9 +185,9 @@ test.describe('backup and restore', () => {
     })
     await expect(page.getByRole('status').filter({ hasText: /imported successfully/i })).toContainText('new entries')
 
-    await page.goto('/#/journal')
+    await page.goto('./#/journal')
     await expect(page.getByText('coffee')).toBeVisible()
-    await page.goto('/#/safety-plan')
+    await page.goto('./#/safety-plan')
     await expect(page.getByText('my dog')).toBeVisible()
   })
 
@@ -196,7 +196,7 @@ test.describe('backup and restore', () => {
       'mindhaven:v1:onboarded': true,
       'mindhaven:v1:moods': [{ id: 'x', timestamp: Date.now(), mood: 4, tags: ['calm'], note: '=HYPERLINK("http://evil.example","click")' }],
     })
-    await page.goto('/#/settings')
+    await page.goto('./#/settings')
     const [csv] = await Promise.all([
       page.waitForEvent('download'),
       page.getByRole('button', { name: /download csv/i }).click(),
@@ -209,7 +209,7 @@ test.describe('backup and restore', () => {
 
   test('creates a daily reminder calendar file at the chosen time', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/settings')
+    await page.goto('./#/settings')
     await page.getByLabel(/remind me at/i).fill('07:45')
     const [ics] = await Promise.all([
       page.waitForEvent('download'),
@@ -226,7 +226,7 @@ test.describe('backup and restore', () => {
 test.describe('safety plan', () => {
   test('can be written, is read back with tap-to-call, and survives a reload', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/safety-plan')
+    await page.goto('./#/safety-plan')
 
     const signs = page.getByRole('group', { name: /my warning signs/i })
     await signs.getByRole('button', { name: /add/i }).click()
@@ -247,7 +247,7 @@ test.describe('safety plan', () => {
 
   test('the printout hides navigation and controls', async ({ page }) => {
     await seed(page, sampleData())
-    await page.goto('/#/safety-plan')
+    await page.goto('./#/safety-plan')
     await waitForPage(page)
     await page.emulateMedia({ media: 'print' })
     await expect(page.getByRole('banner')).toBeHidden()
@@ -262,7 +262,7 @@ test.describe('crisis resources', () => {
     test.use({ locale: 'en-GB' })
     test('preselects that country', async ({ page }) => {
       await seed(page)
-      await page.goto('/#/resources')
+      await page.goto('./#/resources')
       await expect(page.getByLabel(/select your country/i)).toHaveValue('GB')
       await expect(page.getByText('Samaritans')).toBeVisible()
     })
@@ -272,7 +272,7 @@ test.describe('crisis resources', () => {
     test.use({ locale: 'en' })
     test('does not guess', async ({ page }) => {
       await seed(page)
-      await page.goto('/#/resources')
+      await page.goto('./#/resources')
       await expect(page.getByLabel(/select your country/i)).toHaveValue('')
       await expect(page.getByText(/pick your country to see local numbers/i)).toBeVisible()
     })
@@ -280,7 +280,7 @@ test.describe('crisis resources', () => {
 
   test('opens worldwide directories safely in a new tab', async ({ page }) => {
     await seed(page)
-    await page.goto('/#/resources')
+    await page.goto('./#/resources')
     const link = page.getByRole('link', { name: 'findahelpline.com' }).last()
     await expect(link).toHaveAttribute('target', '_blank')
     await expect(link).toHaveAttribute('rel', /noopener/)

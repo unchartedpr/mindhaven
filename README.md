@@ -5,7 +5,7 @@ mood, work through a few short guided exercises, keep a private journal, and
 find real crisis resources if you ever need them — all without creating an
 account or sending your data anywhere.
 
-**Live app:** <https://mindhaven.techlanes.io> — free, no sign-up, works offline once loaded, and can be
+**Live app:** <https://unchartedpr.github.io/mindhaven/> — free, no sign-up, works offline once loaded, and can be
 installed to your home screen.
 
 ## Why this exists
@@ -68,10 +68,15 @@ More: [architecture](docs/ARCHITECTURE.md) · [architecture review](docs/ARCHITE
 ## Deployment
 
 - `ci.yml` runs lint, tests with coverage, the production build, and the e2e suite on every pull request and every push to a branch other than `main`.
-- `deploy.yml` runs the same gates on every push to `main`, then publishes to GitHub Pages at the custom domain in `public/CNAME`. A failing check blocks the deploy.
+- `deploy.yml` runs the same gates on every push to `main`, then publishes to GitHub Pages at <https://unchartedpr.github.io/mindhaven/>. A failing check blocks the deploy.
 - Dependabot opens weekly, grouped dependency updates.
 
 Pages must be set to **Settings → Pages → Source: GitHub Actions**.
+
+The app is built for the default GitHub Pages sub-path, `/mindhaven/` (Vite `base`). To serve it from a custom domain
+instead, build with `BASE_PATH=/` (for example `BASE_PATH=/ npm run build`), add a `public/CNAME` file containing just
+the domain name, and set the domain under **Settings → Pages**. `BASE_PATH` can be any other sub-path too; it is
+normalised to start and end with `/`. The e2e suite assumes the default `/mindhaven/` base.
 
 ## Contributing
 

@@ -40,9 +40,16 @@ function securityMeta(): Plugin {
   }
 }
 
+/**
+ * Where the app is served from. The default is the GitHub Pages project URL
+ * (https://unchartedpr.github.io/mindhaven/), a sub-path. To serve from a domain root (e.g. a custom
+ * domain), build with `BASE_PATH=/`. Always normalised to start and end with a slash.
+ */
+const BASE = `/${(process.env.BASE_PATH || '/mindhaven/').replace(/^\/+|\/+$/g, '')}/`.replace(/^\/\/$/, '/')
+
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/',
+  base: BASE,
   plugins: [
     react(),
     tailwindcss(),
@@ -51,7 +58,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        id: '/',
+        id: BASE,
         name: 'MindHaven — mental wellbeing companion',
         short_name: 'MindHaven',
         description:
@@ -68,9 +75,9 @@ export default defineConfig({
         ],
         // Long-press the installed app icon for one-tap entry points.
         shortcuts: [
-          { name: 'Check in', url: '/#/check-in', icons: [{ src: 'icon-192.png', sizes: '192x192' }] },
-          { name: 'Get help', url: '/#/resources', icons: [{ src: 'icon-192.png', sizes: '192x192' }] },
-          { name: 'Safety plan', url: '/#/safety-plan', icons: [{ src: 'icon-192.png', sizes: '192x192' }] },
+          { name: 'Check in', url: './#/check-in', icons: [{ src: 'icon-192.png', sizes: '192x192' }] },
+          { name: 'Get help', url: './#/resources', icons: [{ src: 'icon-192.png', sizes: '192x192' }] },
+          { name: 'Safety plan', url: './#/safety-plan', icons: [{ src: 'icon-192.png', sizes: '192x192' }] },
         ],
       },
       workbox: {

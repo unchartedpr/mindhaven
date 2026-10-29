@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test'
 const PORT = 4173
 
 /**
- * End-to-end tests run against the production build (`npm run build` first), served by `vite preview`.
+ * End-to-end tests run against the production build (`npm run build` first), served by `vite preview` under the `/mindhaven/` base path.
  * They exist for what jsdom can't judge: real layout, colour contrast, focus behaviour, the service worker,
  * downloads, and what the browser actually requests over the network.
  *
@@ -17,7 +17,8 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    // Trailing slash matters: relative paths such as './#/journal' resolve against it.
+    baseURL: `http://localhost:${PORT}/mindhaven/`,
     trace: 'retain-on-failure',
     // The service worker caches aggressively; block it unless a test is specifically about it.
     serviceWorkers: 'block',
@@ -33,7 +34,7 @@ export default defineConfig({
   ],
   webServer: {
     command: `npm run preview -- --port ${PORT} --strictPort`,
-    url: `http://localhost:${PORT}`,
+    url: `http://localhost:${PORT}/mindhaven/`,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },
